@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>主页|小Z元仔 - 鸭蛋</title>
+    <title>主页 | 小Z元仔 - 鸭蛋</title>
     <style>
         /* 全局样式重置 */
         * {
@@ -14,45 +14,62 @@
         }
         
         body {
-            background-image: url('./images/background.png');
+            background-image: url('./images/background.jpg');
             background-size: cover;
-            color: #212529;
+            color: #fff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            position: relative;
+            padding-bottom: 60px; /* 为页脚留出空间 */
+        }
+        
+        /* 背景覆盖层 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
         
         /* 主容器 */
         .container {
             width: 100%;
             max-width: 900px;
+            padding: 20px;
         }
         
-        /* 个人资料卡片 */
+        /* 毛玻璃效果卡片 */
         .profile-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
             display: flex;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .profile-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
         }
         
-        /* 左侧头像区域 - 固定宽度 */
+        /* 左侧头像区域 */
         .profile-left {
             width: 250px;
-            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(74, 111, 165, 0.05);
+            padding-right: 30px;
         }
         
         .avatar {
@@ -60,41 +77,45 @@
             height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.8);
         }
         
         /* 右侧内容区域 */
         .profile-right {
             flex: 1;
-            padding: 40px;
         }
         
         h1 {
             font-size: 2.2rem;
-            color: #2c3e50;
             margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         h2 {
             font-size: 1.3rem;
-            color: #7f8c8d;
             font-weight: 400;
             margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         p {
-            color: #555;
             line-height: 1.7;
             margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.85);
         }
         
         /* 社交链接 */
         .social-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         
         .social-link {
@@ -104,24 +125,31 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #f1f5f9;
-            color: #4a6fa5;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             font-size: 1.3rem;
             transition: all 0.3s ease;
             text-decoration: none;
+            backdrop-filter: blur(5px);
         }
         
         .social-link:hover {
-            background: #4a6fa5;
-            color: white;
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(1.1);
         }
         
-        /* 页脚 */
+        /* 固定在底部的页脚 */
         footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             text-align: center;
-            margin-top: 30px;
-            color: #7f8c8d;
+            padding: 15px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
         
@@ -129,26 +157,46 @@
         @media (max-width: 768px) {
             .profile-card {
                 flex-direction: column;
+                padding: 30px;
             }
             
             .profile-left {
                 width: 100%;
-                padding: 30px 30px 10px;
-            }
-            
-            .profile-right {
-                padding: 30px;
+                padding-right: 0;
+                margin-bottom: 20px;
             }
             
             .avatar {
                 width: 150px;
                 height: 150px;
             }
+            
+            h1 {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            
+            h2 {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
         }
         
         @media (max-width: 480px) {
+            .profile-card {
+                padding: 25px;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             
             h2 {
@@ -170,18 +218,24 @@
         <div class="profile-card">
             <!-- 左侧头像区域 -->
             <div class="profile-left">
-                <img src="./images/tx.png" alt="个人头像" class="avatar">
+                <img src="./images/my-avatar.jpg" alt="个人头像" class="avatar">
             </div>
             
             <!-- 右侧内容区域 -->
             <div class="profile-right">
-                <h1>小Z元仔 - 鸭蛋</h1>
-                <h2>一个普普通通的学生</h2>
-                <p>热爱编程、绘画和写故事。熟练掌握Scratch，刚入门Python和Godot，会做一些小游戏。目前还没有任何社交平台账号qwq</p>
+                <h1>小Z元仔</h1>
+                <h2>xZoyZDE · 一个普普通通的学生</h2>
+                <p>热爱编程、绘画和写故事。熟练掌握Scratch，刚入门Python和Godot，会做一些小游戏。</p>
                 
                 <div class="social-links">
-                    <a href="https://github.com" class="social-link" target="_blank" title="GitHub">
+                    <a href="https://github.com/xZoyZDE" class="social-link" target="_blank" title="GitHub">
                         <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://gamejolt.com/@xZoYuanZai_ZDE" class="social-link" target="_blank" title="Gamejolt">
+                        <i class="fab fa-gamejolt"></i>
+                    </a>
+                    <a href="https://ccw.site/s/MJlW2" class="social-link" target="_blank" title="CCW">
+                        <i class="fab fa-ccw"></i>
                     </a>
                     <a href="mailto:zeroduckegg@outlook.com" class="social-link" title="电子邮件">
                         <i class="fas fa-envelope"></i>
@@ -189,10 +243,11 @@
                 </div>
             </div>
         </div>
-        
-        <footer>
-            <p>© 2025 小Z元仔-xZoyZDE. 保留所有权利.</p>
-        </footer>
     </div>
+    
+    <!-- 固定在底部的页脚 -->
+    <footer>
+        © 2025 小Z元仔-xZoyZDE. 保留所有权利.
+    </footer>
 </body>
 </html>
